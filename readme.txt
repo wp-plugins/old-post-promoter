@@ -24,7 +24,7 @@ The Old Post Promoter (OPP) is a Wordpress plugin by the Blog Traffic Exchange. 
 
 == Screenshots ==
 
-1. OPP Options opp.jpg
+1. OPP Options
 
 == Frequently Asked Questions ==
 
