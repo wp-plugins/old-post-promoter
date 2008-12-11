@@ -14,7 +14,11 @@ DO NOT USE IF YOUR PERMALINK STRUCTURE HAS DATES!!!
 
 == Description ==
 
-The Old Post Promoter (OPP) is a Wordpress plugin by the Blog Traffic Exchange.  The purpose of the plugin is to promote old posts by sending them back onto the front page and into the RSS feed. It does it randomly choosing an eligible post and updating the publication timestamp.  The post then appears to be the latest post on your Wordpress blog.  "You down with OPP? Yeah you know me!" http://www.blogtrafficexchange.com/old-post-promoter/ 
+The Old Post Promoter (OPP) is a Wordpress plugin by the Blog Traffic Exchange.  The purpose of the plugin is to promote old posts by sending them back onto the front page and into the RSS feed. It does it randomly choosing an eligible post and updating the publication timestamp.  The post then appears to be the latest post on your Wordpress blog.  "You down with OPP? Yeah you know me!" 
+
+**DO NOT USE IF YOUR PERMALINK STRUCTURE HAS DATES!!!**
+
+http://www.blogtrafficexchange.com/old-post-promoter/ 
 
 == Installation ==
 
