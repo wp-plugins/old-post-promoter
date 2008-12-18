@@ -3,13 +3,13 @@
 Plugin Name: Old Post Promoter (OPP)
 Plugin URI: http://www.blogtrafficexchange.com/old-post-promoter
 Description: Randomly choose an old post and reset the publication date to now.  The effect is to promote older posts by moving them back onto the front page and into the rss feed.  This plugin should only be used with data agnostic permalinks (permalink structures not containing dates). <a href="options-general.php?page=OldPostPromoter.php">Configuration options are here.</a>  "You down with OPP?  Yeah you know me!" 
-Version: 1.1
+Version: 1.2
 Author: Blog Traffic Exchange
 Author URI: http://www.blogtrafficexcahnge.com/
 Donate: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=1777819
 License: GNU GPL
 */
-/*  Copyright 2008-2009  Blog Traffic Excahnge (email : kevin@blogtrafficexchange.com)
+/*  Copyright 2008-2009  Blog Traffic Exchange (email : kevin@blogtrafficexchange.com)
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -53,7 +53,7 @@ function bte_opp_head_admin() {
 	echo('<link rel="stylesheet" href="' . $stylesheet . '" type="text/css" media="screen" />');
 }
 
-function bte_opp_options() {		
+function bte_opp_options() {	 	
 	$message = null;
 	$message_updated = __("Old Post Promoter Options Updated.", 'bte_old_post_promoter');
 	if (!empty($_POST['bte_opp_action'])) {
@@ -69,6 +69,12 @@ function bte_opp_options() {
 		}
 		if (isset($_POST['bte_opp_show_original_pubdate'])) {
 			update_option('bte_opp_show_original_pubdate',$_POST['bte_opp_show_original_pubdate']);
+		}
+		if (isset($_POST['bte_opp_give_credit'])) {
+			update_option('bte_opp_give_credit',$_POST['bte_opp_give_credit']);
+		}
+		if (isset($_POST['bte_opp_pos'])) {
+			update_option('bte_opp_pos',$_POST['bte_opp_pos']);
 		}
 		if (isset($_POST['post_category'])) {
 			update_option('bte_opp_omit_cats',implode(',',$_POST['post_category']));
@@ -93,6 +99,14 @@ function bte_opp_options() {
 	$showPub = get_option('bte_opp_show_original_pubdate');
 	if (!isset($showPub)) {
 		$showPub = 1;
+	}
+	$bte_opp_give_credit = get_option('bte_opp_give_credit');
+	if (!isset($bte_opp_give_credit)) {
+		$bte_opp_give_credit = 1;
+	}
+	$bte_opp_pos = get_option('bte_opp_pos');
+	if (!isset($bte_opp_pos)) {
+		$bte_opp_pos = 1;
 	}
 	$interval = get_option('bte_opp_interval');		
 	if (!(isset($interval) && is_numeric($interval))) {
@@ -143,10 +157,24 @@ function bte_opp_options() {
 							</select>
 						</div>
 						<div class="option">
-							<label for="bte_opp_show_original_pubdate">'.__('Show Original Publication Date at Post End: ', 'OldPostPromoter').'</label>
+							<label for="bte_opp_pos">'.__('Promote post to position (choosing the 2nd position will leave the most recent post in place): ', 'OldPostPromoter').'</label>
+							<select name="bte_opp_pos" id="bte_opp_pos">
+									<option value="1" '.bte_opp_optionselected(1,$bte_opp_pos).'>'.__('1st Position', 'OldPostPromoter').'</option>
+									<option value="2" '.bte_opp_optionselected(2,$bte_opp_pos).'>'.__('2nd Position', 'OldPostPromoter').'</option>
+							</select>
+						</div>
+						<div class="option">
+							<label for="bte_opp_show_original_pubdate">'.__('Show Original Publication Date at Post End? ', 'OldPostPromoter').'</label>
 							<select name="bte_opp_show_original_pubdate" id="bte_opp_show_original_pubdate">
 									<option value="1" '.bte_opp_optionselected(1,$showPub).'>'.__('Yes', 'OldPostPromoter').'</option>
 									<option value="0" '.bte_opp_optionselected(0,$showPub).'>'.__('No', 'OldPostPromoter').'</option>
+							</select>
+						</div>
+						<div class="option">
+							<label for="bte_opp_give_credit">'.__('Give OPP Credit with Link? ', 'OldPostPromoter').'</label>
+							<select name="bte_opp_give_credit" id="bte_opp_give_credit">
+									<option value="1" '.bte_opp_optionselected(1,$bte_opp_give_credit).'>'.__('Yes', 'OldPostPromoter').'</option>
+									<option value="0" '.bte_opp_optionselected(0,$bte_opp_give_credit).'>'.__('No', 'OldPostPromoter').'</option>
 							</select>
 						</div>
 							<ul id="category-tabs"> 
@@ -175,19 +203,17 @@ function bte_opp_optionselected($opValue, $value) {
 }
 
 function bte_opp_deactivate() {
-	delete_option('bte_opp_interval');
-	delete_option('bte_opp_interval_slop');
-	delete_option('bte_opp_age_limit');
-	delete_option('bte_opp_omit_cats');
-	delete_option('bte_opp_show_original_pubdate');
+	delete_option('bte_opp_give_credit');
 }
 
 function bte_opp_activate() {
-	update_option('bte_opp_interval',BTE_OPP_INTERVAL);
-	update_option('bte_opp_interval_slop',BTE_OPP_INTERVAL_SLOP);
-	update_option('bte_opp_age_limit',BTE_OPP_AGE_LIMIT);
-	update_option('bte_opp_omit_cats',BTE_OPP_OMIT_CATS);
-	update_option('bte_opp_show_original_pubdate',1);	
+	add_option('bte_opp_interval',BTE_OPP_INTERVAL);
+	add_option('bte_opp_interval_slop',BTE_OPP_INTERVAL_SLOP);
+	add_option('bte_opp_age_limit',BTE_OPP_AGE_LIMIT);
+	add_option('bte_opp_omit_cats',BTE_OPP_OMIT_CATS);
+	add_option('bte_opp_show_original_pubdate',1);	
+	add_option('bte_opp_pos',0);	
+	add_option('bte_opp_give_credit',1);	
 }
 
 function bte_opp_options_setup() {	
@@ -242,9 +268,22 @@ function bte_opp_update_old_post($oldest_post) {
 		add_post_meta($oldest_post, 'bte_opp_original_pub_date', $origPubDate);
 		$origPubDate = get_post_meta($oldest_post, 'bte_opp_original_pub_date', true); 
 	}
-	$new_time = date('Y-m-d H:i:s');
-	$gmt_time = get_gmt_from_date($new_time);
-	$sql = "UPDATE $wpdb->posts SET post_date = '$new_time',post_date_gmt = '$gmt_time',post_modified = '$new_time',post_modified_gmt = '$gmt_time' WHERE ID = '$oldest_post'";
+	$bte_opp_pos = get_option('bte_opp_pos');
+	if (!isset($bte_opp_pos)) {
+		$bte_opp_pos = 0;
+	}
+	if ($bte_opp_pos==1) {
+		$new_time = date('Y-m-d H:i:s');
+		$gmt_time = get_gmt_from_date($new_time);
+	} else {
+		$lastposts = get_posts('numberposts=1&offset=1');
+		foreach ($lastposts as $lastpost) {
+			$post_date = strtotime($lastpost->post_date);
+			$new_time = date('Y-m-d H:i:s',mktime(date("H",$post_date),date("i",$post_date),date("s",$post_date)+1,date("m",$post_date),date("d",$post_date),date("Y",$post_date)));
+			$gmt_time = get_gmt_from_date($new_time);
+		}
+	}
+	$sql = "UPDATE $wpdb->posts SET post_date = '$new_time',post_date_gmt = '$gmt_time',post_modified = '$new_time',post_modified_gmt = '$gmt_time' WHERE ID = '$oldest_post'";		
 	$wpdb->query($sql);
 	if (function_exists('wp_cache_flush')) {
 		wp_cache_flush();
@@ -257,12 +296,23 @@ function bte_opp_the_content($content) {
 	if (!isset($showPub)) {
 		$showPub = 1;
 	}
-	if ($showPub) {
-		$origPubDate = get_post_meta($post->ID, 'bte_opp_original_pub_date', true);
-		if (isset($origPubDate) && $origPubDate!='') {
-			return $content.'<p id="bte_opp"><small>Originally posted '.$origPubDate.'. Republished by  <a href="http://www.blogtrafficexchange.com/old-post-promoter">Old Post Promoter</a>.</small></p>';
-		}	
-	}		
+	$givecredit = get_option('bte_opp_give_credit');
+	if (!isset($givecredit)) {
+		$givecredit = 1;
+	}
+	if ($showPub || $givecredit) {
+		$content.='<p id="bte_opp"><small>';
+		if ($showPub) {
+			$origPubDate = get_post_meta($post->ID, 'bte_opp_original_pub_date', true);
+			if (isset($origPubDate) && $origPubDate!='') {
+				$content.='Originally posted '.$origPubDate.'. ';
+			}
+		}
+		if ($givecredit) {
+				$content.='Republished by  <a href="http://www.blogtrafficexchange.com/old-post-promoter">Old Post Promoter</a>';
+		}
+		$content.='</small></p>';
+	}
 	return $content;
 }
 
