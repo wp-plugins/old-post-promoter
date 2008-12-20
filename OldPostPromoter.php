@@ -3,7 +3,7 @@
 Plugin Name: Old Post Promoter (OPP)
 Plugin URI: http://www.blogtrafficexchange.com/old-post-promoter
 Description: Randomly choose an old post and reset the publication date to now.  The effect is to promote older posts by moving them back onto the front page and into the rss feed.  This plugin should only be used with data agnostic permalinks (permalink structures not containing dates). <a href="options-general.php?page=OldPostPromoter.php">Configuration options are here.</a>  "You down with OPP?  Yeah you know me!" 
-Version: 1.2
+Version: 1.2.2
 Author: Blog Traffic Exchange
 Author URI: http://www.blogtrafficexchange.com/
 Donate: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=1777819
@@ -300,18 +300,18 @@ function bte_opp_the_content($content) {
 	if (!isset($givecredit)) {
 		$givecredit = 1;
 	}
-	if ($showPub || $givecredit) {
-		$content.='<p id="bte_opp"><small>';
-		if ($showPub) {
-			$origPubDate = get_post_meta($post->ID, 'bte_opp_original_pub_date', true);
-			if (isset($origPubDate) && $origPubDate!='') {
+	$origPubDate = get_post_meta($post->ID, 'bte_opp_original_pub_date', true);
+	if (isset($origPubDate) && $origPubDate!='') {
+		if ($showPub || $givecredit) {
+			$content.='<p id="bte_opp"><small>';
+			if ($showPub) {
 				$content.='Originally posted '.$origPubDate.'. ';
 			}
+			if ($givecredit) {
+					$content.='Republished by  <a href="http://www.blogtrafficexchange.com/old-post-promoter">Old Post Promoter</a>';
+			}
+			$content.='</small></p>';
 		}
-		if ($givecredit) {
-				$content.='Republished by  <a href="http://www.blogtrafficexchange.com/old-post-promoter">Old Post Promoter</a>';
-		}
-		$content.='</small></p>';
 	}
 	return $content;
 }
