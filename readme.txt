@@ -19,6 +19,7 @@ The Old Post Promoter (OPP) is a Wordpress plugin by the Blog Traffic Exchange. 
 **DO NOT USE IF YOUR PERMALINK STRUCTURE HAS DATES!!!**
 
 http://www.blogtrafficexchange.com/old-post-promoter/ 
+[Old Post Promoter](http://www.blogtrafficexchange.com/old-post-promoter "Old Post Promoter")
 
 == Installation ==
 
@@ -43,3 +44,8 @@ Yes it will.  Did you read the warning? This plugin should no be used with perma
 = Your plugin is so cool. I want to get rid of dates from my permalink structure, how do I do it?  =
 
 Glad you asked... [Remove Date from Permalink Structure](http://www.blogtrafficexchange.com/remove-dates-from-permalink "Remove Date from Permalink Structure")
+
+= What is the plugin page  =
+
+[Old Post Promoter](http://www.blogtrafficexchange.com/old-post-promoter "Old Post Promoter")
+
