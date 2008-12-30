@@ -4,13 +4,15 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: post, promotion, SEO, rss, plugin, posts, bte
 Requires at least: 2.5
 Tested up to: 2.7
-Stable tag: 1.2.2
+Stable tag: 1.3
 
 Randomly choose an old post and reset the publication date to now.  Promote older posts back to front page and RSS feed.
 
 == Warnings ==
 
-DO NOT USE IF YOUR PERMALINK STRUCTURE HAS DATES!!!
+**DO NOT USE IF YOUR PERMALINK STRUCTURE HAS DATES!!!**
+
+If you really want to use [Old Post Promoter](http://www.blogtrafficexchange.com/old-post-promoter "Old Post Promoter") by [Blog Traffic Exchange](http://www.blogtrafficexchange.com/ "Blog Traffic Exchange") please [remove the date from Wordpress permalinks](http://www.blogtrafficexchange.com/remove-dates-from-permalink "remove the date from Wordpress permalinks")
 
 == Description ==
 
@@ -18,8 +20,9 @@ The Old Post Promoter (OPP) is a Wordpress plugin by the Blog Traffic Exchange. 
 
 **DO NOT USE IF YOUR PERMALINK STRUCTURE HAS DATES!!!**
 
-http://www.blogtrafficexchange.com/old-post-promoter/ 
-[Old Post Promoter](http://www.blogtrafficexchange.com/old-post-promoter "Old Post Promoter")
+[Old Post Promoter](http://www.blogtrafficexchange.com/old-post-promoter "Old Post Promoter") by [Blog Traffic Exchange](http://www.blogtrafficexchange.com/ "Blog Traffic Exchange")
+
+Check out my other [Wordpress Plugins](http://www.blogtrafficexchange.com/wordpress-plugins "Wordpress Plugins")
 
 == Installation ==
 
@@ -45,7 +48,13 @@ Yes it will.  Did you read the warning? This plugin should no be used with perma
 
 Glad you asked... [Remove Date from Permalink Structure](http://www.blogtrafficexchange.com/remove-dates-from-permalink "Remove Date from Permalink Structure")
 
-= What is the plugin page  =
+= What is the plugin page?  =
 
-[Old Post Promoter](http://www.blogtrafficexchange.com/old-post-promoter "Old Post Promoter")
+[Old Post Promoter](http://www.blogtrafficexchange.com/old-post-promoter "Old Post Promoter") by [Blog Traffic Exchange](http://www.blogtrafficexchange.com/ "Blog Traffic Exchange")
 
+= Do you have other plugins?  =
+
+Currently as of 12/30/08: 
+[Blog Copyright](http://www.blogtrafficexchange.com/blogcopyright "Blog Copyright") by [Blog Traffic Exchange](http://www.blogtrafficexchange.com/ "Blog Traffic Exchange")
+
+I am working on several others, when released you will find them on my [Wordpress Plugins](http://www.blogtrafficexchange.com/wordpress-plugins "Wordpress Plugins") page.

@@ -1,9 +1,9 @@
 <?php
 /*
-Plugin Name: Old Post Promoter (OPP)
+Plugin Name: Old Post Promoter (by BTE)
 Plugin URI: http://www.blogtrafficexchange.com/old-post-promoter
 Description: Randomly choose an old post and reset the publication date to now.  The effect is to promote older posts by moving them back onto the front page and into the rss feed.  This plugin should only be used with data agnostic permalinks (permalink structures not containing dates). <a href="options-general.php?page=OldPostPromoter.php">Configuration options are here.</a>  "You down with OPP?  Yeah you know me!" 
-Version: 1.2.2
+Version: 1.3
 Author: Blog Traffic Exchange
 Author URI: http://www.blogtrafficexchange.com/
 Donate: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=1777819
@@ -119,7 +119,7 @@ function bte_opp_options() {
 	
 	print('
 			<div class="wrap">
-				<h2>'.__('Old Post Promoter', 'OldPostPromoter').'</h2>
+				<h2>'.__('Old Post Promoter by', 'OldPostPromoter').'<a href="http://www.blogtrafficexchange.com">Blog Traffic Exchange</a></h2>
 				<form id="bte_opp" name="bte_oldpostpromoter" action="'.get_bloginfo('wpurl').'/wp-admin/options-general.php?page=OldPostPromoter.php" method="post">
 					<input type="hidden" name="bte_opp_action" value="bte_opp_update_settings" />
 					<fieldset class="options">
@@ -217,7 +217,7 @@ function bte_opp_activate() {
 }
 
 function bte_opp_options_setup() {	
-	add_options_page('OPP', 'OPP', 10, basename(__FILE__), 'bte_opp_options');
+	add_options_page('OldPostPromoter', 'Old Post Promoter', 10, basename(__FILE__), 'bte_opp_options');
 }
 
 function bte_opp_old_post_promoter () {
