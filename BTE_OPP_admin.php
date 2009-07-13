@@ -127,6 +127,7 @@ function bte_opp_options() {
 									<option value="90" '.bte_opp_optionselected(90,$ageLimit).'>'.__('90 Days', 'OldPostPromoter').'</option>
 									<option value="120" '.bte_opp_optionselected(120,$ageLimit).'>'.__('120 Days', 'OldPostPromoter').'</option>
 									<option value="240" '.bte_opp_optionselected(240,$ageLimit).'>'.__('240 Days', 'OldPostPromoter').'</option>
+									<option value="365" '.bte_opp_optionselected(365,$ageLimit).'>'.__('365 Days', 'OldPostPromoter').'</option>
 							</select>
 						</div>
 						<div class="option">
