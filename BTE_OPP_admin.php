@@ -31,6 +31,12 @@ function bte_opp_options() {
 	$message_updated = __("Old Post Promoter Options Updated.", 'bte_old_post_promoter');
 	if (!empty($_POST['bte_opp_action'])) {
 		$message = $message_updated;
+		if (isset($_POST['bte_opp_twitter_username'])) {
+			update_option('bte_opp_twitter_username',$_POST['bte_opp_twitter_username']);
+		}
+		if (isset($_POST['bte_opp_twitter_password'])) {
+			update_option('bte_opp_twitter_password',$_POST['bte_opp_twitter_password']);
+		}
 		if (isset($_POST['bte_opp_interval'])) {
 			update_option('bte_opp_interval',$_POST['bte_opp_interval']);
 		}
@@ -89,6 +95,8 @@ function bte_opp_options() {
 	if (!(isset($slop) && is_numeric($slop))) {
 		$slop = BTE_OPP_INTERVAL_SLOP;
 	}
+	$twitter_username = get_option('bte_opp_twitter_username');
+	$twitter_password = get_option('bte_opp_twitter_password');
 	
 	print('
 			<div class="wrap">
@@ -96,6 +104,11 @@ function bte_opp_options() {
 				<form id="bte_opp" name="bte_oldpostpromoter" action="'.get_bloginfo('wpurl').'/wp-admin/options-general.php?page=BTE_OPP_admin.php" method="post">
 					<input type="hidden" name="bte_opp_action" value="bte_opp_update_settings" />
 					<fieldset class="options">
+						<div class="option">
+							<label for="bte_opp_twitter_username">Enable Tweet on Promotion: '.__('Twitter Username', 'OldPostPromoter').'/'.__('Password', 'OldPostPromoter').':</label>
+							<input type="text" size="25" name="bte_opp_twitter_username" id="bte_opp_twitter_username" value="'.$twitter_username.'" autocomplete="off" />
+							<input type="password" size="25" name="bte_opp_twitter_password" id="bte_opp_twitter_password" value="'.$twitter_password.'" autocomplete="off" />
+						</div>
 						<div class="option">
 							<label for="bte_opp_interval">'.__('Minimum Interval Between Old Post Promotions: ', 'OldPostPromoter').'</label>
 							<select name="bte_opp_interval" id="bte_opp_interval">

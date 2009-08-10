@@ -56,6 +56,7 @@ function bte_opp_promote_old_post () {
 
 function bte_opp_update_old_post($oldest_post) {
 	global $wpdb;
+	$post = get_post($oldest_post);
 	$origPubDate = get_post_meta($oldest_post, 'bte_opp_original_pub_date', true); 
 	if (!(isset($origPubDate) && $origPubDate!='')) {
 	    $sql = "SELECT post_date from ".$wpdb->posts." WHERE ID = '$oldest_post'";
@@ -83,7 +84,90 @@ function bte_opp_update_old_post($oldest_post) {
 	if (function_exists('wp_cache_flush')) {
 		wp_cache_flush();
 	}		
+		
+	$permalink = get_permalink($oldest_post);
+	bte_opp_tweet($post->post_title." ".$permalink." #OPP");
+	
+	//reping
+	$services = get_settings('ping_sites');
+	$services = preg_replace("|(\s)+|", '$1', $services);
+	$services = trim($services);
+	if ( '' != $services ) {
+		set_time_limit(300);
+		$services = explode("\n", $services);
+		foreach ($services as $service) {
+			bte_opp_sendXmlrpc($service,$permalink);
+		}
+	}
 }
+
+/**
+ * A modified version of WP's ping functionality "weblog_ping" in functions.php
+ * Uses correct extended Ping format and logs response from service.
+ * @param string $server
+ * @param string $path
+ */
+function bte_opp_sendXmlrpc($server, $permalink) {
+	include_once (ABSPATH . WPINC . '/class-IXR.php');
+	$path = '';
+	// using a timeout of 3 seconds should be enough to cover slow servers
+	$client = new IXR_Client($server, ((!strlen(trim($path)) || ('/' == $path)) ? false : $path));
+	$client->timeout = 3;
+	$client->useragent .= ' -- WordPress/OPP';
+
+	// when set to true, this outputs debug messages by itself
+	$client->debug = false;
+	$home = trailingslashit(get_option('home'));
+			
+	///$this->_post_title = $this->_post_title.'###'.$check_url;///
+	// the extendedPing format should be "blog name", "blog url", "permalink", and "feed url",
+	// but it would seem as if the standard has been mixed up. It's therefore good to repeat the feed url.
+	// $this->_post_type = 2 if new post and 3 if future post
+	if ( $client->query('weblogUpdates.extendedPing', get_settings('blogname'), $home, $permalink, get_bloginfo('rss2_url')) ) { 
+		//error_log($server." was successfully pinged (extended format)");
+	} else {
+		if ( $client->query('weblogUpdates.ping', get_settings('blogname'), $home) ) {
+			//error_log($server." was successfully pinged");
+		} else {
+			//error_log($server." could not be pinged. Error message: \"".$client->error->message."\"");
+		}
+	}
+}
+
+
+function bte_opp_tweet($tweet) {
+	$user = get_option('bte_opp_twitter_username');
+	$pass = get_option('bte_opp_twitter_password');
+	if (empty($user) 
+		|| empty($pass) 
+		|| empty($tweet)
+	) {
+		return;
+	}
+	//I guess I am supposed to do this with OAuth but that seems way to hard given the nature of plugins
+	require_once(ABSPATH.WPINC.'/class-snoopy.php');
+	$snoop = new Snoopy;
+	$snoop->agent = 'Old Post Promoter http://www.blogtrafficexchange.com/old-post-promoter';
+	$snoop->rawheaders = array(
+		'X-Twitter-Client' => 'Old Post Promoter'
+		, 'X-Twitter-Client-Version' => '1.6'
+		, 'X-Twitter-Client-URL' => 'http://www.blogtrafficexchange.com/old-post-promoter.xml'
+	);
+	$snoop->user = $user;
+	$snoop->pass = $pass;
+	$snoop->submit(
+		BTE_RT_API_POST_STATUS
+		, array(
+			'status' => $tweet
+			, 'source' => 'Old Post Promoter'
+		)
+	);
+	if (strpos($snoop->response_code, '200')) {
+		return true;
+	}
+	return false;
+}
+
 
 function bte_opp_the_content($content) {
 	global $post;
