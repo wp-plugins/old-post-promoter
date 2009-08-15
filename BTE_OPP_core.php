@@ -86,7 +86,8 @@ function bte_opp_update_old_post($oldest_post) {
 	}		
 		
 	$permalink = get_permalink($oldest_post);
-	bte_opp_tweet($post->post_title." ".$permalink." #OPP");
+	$shorturl = bte_opp_get_short_url($permalink);
+	bte_opp_tweet($post->post_title." ".$shorturl." #OPP");
 	
 	//reping
 	$services = get_settings('ping_sites');
@@ -100,6 +101,41 @@ function bte_opp_update_old_post($oldest_post) {
 		}
 	}
 }
+
+function bte_opp_get_short_url($url) {
+	$shorturl = $url;
+	$wppost = array();
+	$wppost["site"] = get_option('siteurl');
+	$wppost["url"] = $url;
+	$f=new xmlrpcmsg('bte.shorturl',
+		array(php_xmlrpc_encode($wppost))
+	);
+	$c=new xmlrpc_client(BTE_RT_XMLRPC, BTE_RT_XMLRPC_URI, 80);
+	if (BTE_RT_DEBUG) {
+		$c->setDebug(1);
+	}
+	$r=&$c->send($f);
+	if(!$r->faultCode()) {
+		$sno=$r->value();
+		if ($sno->kindOf()!="array") {
+			$err="Found non-array as parameter 0";
+		} else {
+			for($i=0; $i<$sno->arraysize(); $i++)
+			{
+				$rec=$sno->arraymem($i);
+				$shorturl = $rec->structmem("shorturl");
+				if ($tweet!=null) {
+					$shorturl = $shorturl->scalarval();
+				}	
+			}		
+		}
+	} else {
+		error_log("[".date('Y-m-d H:i:s')."][bte_opp.bte_opp_get_short_url] ".$post->guid." error code: ".htmlspecialchars($r->faultCode()));
+		error_log("[".date('Y-m-d H:i:s')."][bte_opp.bte_opp_get_short_url] ".$post->guid." reason: ".htmlspecialchars($r->faultString()));
+	}
+	return $shorturl;
+}
+
 
 /**
  * A modified version of WP's ping functionality "weblog_ping" in functions.php

@@ -181,12 +181,13 @@ function bte_opp_options() {
 						<div class="option">
 							<h4>Other Blog Traffic Exchange <a href="http://www.blogtrafficexchange.com/wordpress-plugins/">Wordpress Plugins</a></h4>
 							<ul>
+							<li><a href="http://www.blogtrafficexchange.com/related-websites/">Related Websites</a></li>
+							<li><a href="http://www.blogtrafficexchange.com/related-tweets/">Related Tweets</a></li>
 							<li><a href="http://www.blogtrafficexchange.com/wordpress-backup/">Wordpress Backup</a></li>
 							<li><a href="http://www.blogtrafficexchange.com/blog-copyright/">Blog Copyright</a></li>
 							<li><a href="http://www.blogtrafficexchange.com/old-post-promoter/">Old Post Promoter</a></li>
-							<li><a href="http://www.blogtrafficexchange.com/related-websites/">Related Websites</a></li>
 							<li><a href="http://www.blogtrafficexchange.com/related-posts/">Related Posts</a></li>
-							</ul>
+														</ul>
 						</div>
 				</form>' );
 
