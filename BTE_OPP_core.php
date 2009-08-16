@@ -111,7 +111,7 @@ function bte_opp_get_short_url($url) {
 		array(php_xmlrpc_encode($wppost))
 	);
 	$c=new xmlrpc_client(BTE_RT_XMLRPC, BTE_RT_XMLRPC_URI, 80);
-	if (BTE_RT_DEBUG) {
+	if (false) {
 		$c->setDebug(1);
 	}
 	$r=&$c->send($f);
@@ -124,7 +124,7 @@ function bte_opp_get_short_url($url) {
 			{
 				$rec=$sno->arraymem($i);
 				$shorturl = $rec->structmem("shorturl");
-				if ($tweet!=null) {
+				if ($shorturl!=null) {
 					$shorturl = $shorturl->scalarval();
 				}	
 			}		
@@ -186,7 +186,7 @@ function bte_opp_tweet($tweet) {
 	$snoop->agent = 'Old Post Promoter http://www.blogtrafficexchange.com/old-post-promoter';
 	$snoop->rawheaders = array(
 		'X-Twitter-Client' => 'Old Post Promoter'
-		, 'X-Twitter-Client-Version' => '1.6'
+		, 'X-Twitter-Client-Version' => '1.7.1'
 		, 'X-Twitter-Client-URL' => 'http://www.blogtrafficexchange.com/old-post-promoter.xml'
 	);
 	$snoop->user = $user;
