@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: post, promotion, SEO, rss, plugin, posts, bte
 Requires at least: 2.5
 Tested up to: 2.8.4
-Stable tag: 1.7.1
+Stable tag: 1.7.2
 
 Randomly choose an old post and reset the publication date to now.  Promote older posts back to front page and RSS feed.
 
@@ -54,10 +54,12 @@ Glad you asked... [Remove Date from Permalink Structure](http://www.blogtraffice
 
 = Do you have other plugins?  =
 
-[Blog Copyright](http://www.blogtrafficexchange.com/blogcopyright "Blog Copyright")
+[Related Websites](http://www.blogtrafficexchange.com/related-websites "Related Websites")
+[Related Tweets](http://www.blogtrafficexchange.com/related-tweets "Related Tweets")
 [Old Post Promoter](http://www.blogtrafficexchange.com/old-post-promoter "Old Post Promoter")
 [Wordpress Backup](http://www.blogtrafficexchange.com/wordpress-backup "Wordpress Backup")
-[Related Websites](http://www.blogtrafficexchange.com/related-websites "Related Websites")
+[Disseminate](http://www.blogtrafficexchange.com/disseminate "Disseminate")
+[Blog Copyright](http://www.blogtrafficexchange.com/blogcopyright "Blog Copyright")
 [Related Posts](http://www.blogtrafficexchange.com/related-posts "Related Posts")
 
 I am working on several others, when released you will find them on my [Wordpress Plugins](http://www.blogtrafficexchange.com/wordpress-plugins "Wordpress Plugins") page.

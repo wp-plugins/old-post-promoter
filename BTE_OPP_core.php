@@ -17,8 +17,8 @@
 */
 function bte_opp_old_post_promoter () {
 	if (bte_opp_update_time()) {
-		bte_opp_promote_old_post();
 		update_option('bte_opp_last_update', time());
+		bte_opp_promote_old_post();
 	}
 }
 
