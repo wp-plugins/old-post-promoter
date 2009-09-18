@@ -223,7 +223,7 @@ function bte_opp_the_content($content) {
 				$content.='Originally posted '.$origPubDate.'. ';
 			}
 			if ($givecredit) {
-					$content.='Republished by  <a href="http://www.blogtrafficexchange.com/old-post-promoter">Old Post Promoter</a>';
+					$content.='Republished by  <a href="http://www.blogtrafficexchange.com/old-post-promoter">Blog Post Promoter</a>';
 			}
 			$content.='</small></p>';
 		}
