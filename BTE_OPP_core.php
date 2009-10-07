@@ -110,7 +110,7 @@ function bte_opp_get_short_url($url) {
 	$f=new xmlrpcmsg('bte.shorturl',
 		array(php_xmlrpc_encode($wppost))
 	);
-	$c=new xmlrpc_client(BTE_RT_XMLRPC, BTE_RT_XMLRPC_URI, 80);
+	$c=new xmlrpc_client(BTE_OPP_XMLRPC, BTE_OPP_XMLRPC_URI, 80);
 	if (false) {
 		$c->setDebug(1);
 	}
