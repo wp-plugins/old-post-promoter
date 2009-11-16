@@ -55,6 +55,9 @@ function bte_opp_options() {
 		if (isset($_POST['bte_opp_pos'])) {
 			update_option('bte_opp_pos',$_POST['bte_opp_pos']);
 		}
+		if (isset($_POST['bte_opp_at_top'])) {
+			update_option('bte_opp_at_top',$_POST['bte_opp_at_top']);
+		}
 		if (isset($_POST['post_category'])) {
 			update_option('bte_opp_omit_cats',implode(',',$_POST['post_category']));
 		}
@@ -78,6 +81,10 @@ function bte_opp_options() {
 	$showPub = get_option('bte_opp_show_original_pubdate');
 	if (!isset($showPub)) {
 		$showPub = 1;
+	}
+	$atTop = get_option('bte_opp_at_top');
+	if (!isset($atTop)) {
+		$atTop = 0;
 	}
 	$bte_opp_give_credit = get_option('bte_opp_give_credit');
 	if (!isset($bte_opp_give_credit)) {
@@ -155,6 +162,13 @@ function bte_opp_options() {
 							<select name="bte_opp_show_original_pubdate" id="bte_opp_show_original_pubdate">
 									<option value="1" '.bte_opp_optionselected(1,$showPub).'>'.__('Yes', 'OldPostPromoter').'</option>
 									<option value="0" '.bte_opp_optionselected(0,$showPub).'>'.__('No', 'OldPostPromoter').'</option>
+							</select>
+						</div>
+						<div class="option">
+							<label for="bte_opp_at_top">'.__('Show Original Publication Date At Top of Post? ', 'OldPostPromoter').'</label>
+							<select name="bte_opp_at_top" id="bte_opp_at_top">
+									<option value="1" '.bte_opp_optionselected(1,$atTop).'>'.__('Yes', 'OldPostPromoter').'</option>
+									<option value="0" '.bte_opp_optionselected(0,$atTop).'>'.__('No', 'OldPostPromoter').'</option>
 							</select>
 						</div>
 						<div class="option">

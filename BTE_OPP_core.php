@@ -216,17 +216,24 @@ function bte_opp_the_content($content) {
 		$givecredit = 1;
 	}
 	$origPubDate = get_post_meta($post->ID, 'bte_opp_original_pub_date', true);
+	$dateline = '';
 	if (isset($origPubDate) && $origPubDate!='') {
 		if ($showPub || $givecredit) {
-			$content.='<p id="bte_opp"><small>';
+			$dateline.='<p id="bte_opp"><small>';
 			if ($showPub) {
-				$content.='Originally posted '.$origPubDate.'. ';
+				$dateline.='Originally posted '.$origPubDate.'. ';
 			}
 			if ($givecredit) {
-					$content.='Republished by  <a href="http://www.blogtrafficexchange.com/old-post-promoter">Blog Post Promoter</a>';
+					$dateline.='Republished by  <a href="http://www.blogtrafficexchange.com/old-post-promoter">Blog Post Promoter</a>';
 			}
-			$content.='</small></p>';
+			$dateline.='</small></p>';
 		}
+	}
+	$atTop = get_option('bte_opp_at_top');
+	if (isset($atTop) && $atTop) {
+		$content = $dateline.$content;
+	} else {
+		$content = $content.$dateline;
 	}
 	return $content;
 }
