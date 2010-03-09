@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: post, promotion, SEO, rss, plugin, posts, bte
 Requires at least: 2.5
 Tested up to: 2.9.2
-Stable tag: 1.7.6
+Stable tag: 1.7.7
 
 Randomly choose an old post and reset the publication date to now.  Promote older posts back to front page and RSS feed.
 
