@@ -148,7 +148,8 @@ function bte_opp_options() {
 									<option value="120" '.bte_opp_optionselected(120,$ageLimit).'>'.__('120 Days', 'OldPostPromoter').'</option>
 									<option value="240" '.bte_opp_optionselected(240,$ageLimit).'>'.__('240 Days', 'OldPostPromoter').'</option>
 									<option value="365" '.bte_opp_optionselected(365,$ageLimit).'>'.__('365 Days', 'OldPostPromoter').'</option>
-							</select>
+									<option value="730" '.bte_opp_optionselected(730,$ageLimit).'>'.__('730 Days', 'OldPostPromoter').'</option>
+									</select>
 						</div>
 						<div class="option">
 							<label for="bte_opp_pos">'.__('Promote post to position (choosing the 2nd position will leave the most recent post in place): ', 'OldPostPromoter').'</label>
