@@ -3,7 +3,7 @@
 Plugin Name: Old Post Promoter (by BTE)
 Plugin URI: http://www.blogtrafficexchange.com/old-post-promoter
 Description: Randomly choose an old post and reset the publication date to now.  The effect is to promote older posts by moving them back onto the front page and into the rss feed.  This plugin should only be used with data agnostic permalinks (permalink structures not containing dates). <a href="options-general.php?page=BTE_OPP_admin.php">Configuration options are here.</a>  "You down with OPP?  Yeah you know me!" 
-Version: 1.8.1
+Version: 1.8.2
 Author: Blog Traffic Exchange
 Author URI: http://www.blogtrafficexchange.com/
 Donate: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=1777819
@@ -37,8 +37,8 @@ define ('BTE_OPP_XMLRPC_URI', 'bteservice.com');
 define ('BTE_OPP_XMLRPC', 'bte.php'); 
 
 define ('BTE_OPP_1_MINUTE', 60); 
-define ('BTE_OPP_15_MINUTE', 15*BTE_OPP_1_MINUTE); 
-define ('BTE_OPP_30_MINUTE', 30*BTE_OPP_1_MINUTE); 
+define ('BTE_OPP_15_MINUTES', 15*BTE_OPP_1_MINUTE); 
+define ('BTE_OPP_30_MINUTES', 30*BTE_OPP_1_MINUTE); 
 define ('BTE_OPP_1_HOUR', 60*BTE_OPP_1_MINUTE); 
 define ('BTE_OPP_4_HOURS', 4*BTE_OPP_1_HOUR); 
 define ('BTE_OPP_6_HOURS', 6*BTE_OPP_1_HOUR); 
