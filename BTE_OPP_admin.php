@@ -119,8 +119,8 @@ function bte_opp_options() {
 						<div class="option">
 							<label for="bte_opp_interval">'.__('Minimum Interval Between Old Post Promotions: ', 'OldPostPromoter').'</label>
 							<select name="bte_opp_interval" id="bte_opp_interval">
-									<option value="'.BTE_OPP_15_MINUTES.'" '.bte_opp_optionselected(BTE_OPP_15_MINUTES,$interval).'>'.__('1 Hour', 'OldPostPromoter').'</option>
-									<option value="'.BTE_OPP_30_MINUTES.'" '.bte_opp_optionselected(BTE_OPP_30_MINUTES,$interval).'>'.__('1 Hour', 'OldPostPromoter').'</option>
+									<option value="'.BTE_OPP_15_MINUTES.'" '.bte_opp_optionselected(BTE_OPP_15_MINUTES,$interval).'>'.__('15 Minutes', 'OldPostPromoter').'</option>
+									<option value="'.BTE_OPP_30_MINUTES.'" '.bte_opp_optionselected(BTE_OPP_30_MINUTES,$interval).'>'.__('30 Minutes', 'OldPostPromoter').'</option>
 									<option value="'.BTE_OPP_1_HOUR.'" '.bte_opp_optionselected(BTE_OPP_1_HOUR,$interval).'>'.__('1 Hour', 'OldPostPromoter').'</option>
 									<option value="'.BTE_OPP_4_HOURS.'" '.bte_opp_optionselected(BTE_OPP_4_HOURS,$interval).'>'.__('4 Hours', 'OldPostPromoter').'</option>
 									<option value="'.BTE_OPP_6_HOURS.'" '.bte_opp_optionselected(BTE_OPP_6_HOURS,$interval).'>'.__('6 Hours', 'OldPostPromoter').'</option>
