@@ -31,11 +31,17 @@ function bte_opp_options() {
 	$message_updated = __("Old Post Promoter Options Updated.", 'bte_old_post_promoter');
 	if (!empty($_POST['bte_opp_action'])) {
 		$message = $message_updated;
-		if (isset($_POST['bte_opp_twitter_username'])) {
-			update_option('bte_opp_twitter_username',$_POST['bte_opp_twitter_username']);
+		if (isset($_POST['bte_opp_twitter_consumer_key'])) {
+			update_option('bte_opp_twitter_consumer_key',$_POST['bte_opp_twitter_consumer_key']);
 		}
-		if (isset($_POST['bte_opp_twitter_password'])) {
-			update_option('bte_opp_twitter_password',$_POST['bte_opp_twitter_password']);
+		if (isset($_POST['bte_opp_twitter_consumer_secret'])) {
+			update_option('bte_opp_twitter_consumer_secret',$_POST['bte_opp_twitter_consumer_secret']);
+		}
+		if (isset($_POST['bte_opp_twitter_oauth_token'])) {
+			update_option('bte_opp_twitter_oauth_token',$_POST['bte_opp_twitter_oauth_token']);
+		}
+		if (isset($_POST['bte_opp_twitter_oauth_secret'])) {
+			update_option('bte_opp_twitter_oauth_secret',$_POST['bte_opp_twitter_oauth_secret']);
 		}
 		if (isset($_POST['bte_opp_interval'])) {
 			update_option('bte_opp_interval',$_POST['bte_opp_interval']);
@@ -102,20 +108,17 @@ function bte_opp_options() {
 	if (!(isset($slop) && is_numeric($slop))) {
 		$slop = BTE_OPP_INTERVAL_SLOP;
 	}
-	$twitter_username = get_option('bte_opp_twitter_username');
-	$twitter_password = get_option('bte_opp_twitter_password');
-	
+	$twitter_consumer_key = get_option('bte_opp_twitter_consumer_key');
+	$twitter_consumer_secret = get_option('bte_opp_twitter_consumer_secret');
+	$twitter_oauth_token = get_option('bte_opp_twitter_oauth_token');
+	$twitter_oauth_secret = get_option('bte_opp_twitter_oauth_secret');
+		
 	print('
 			<div class="wrap">
 				<h2>'.__('Old Post Promoter by', 'OldPostPromoter').' <a href="http://www.blogtrafficexchange.com">Blog Traffic Exchange</a></h2>
 				<form id="bte_opp" name="bte_oldpostpromoter" action="'.get_bloginfo('wpurl').'/wp-admin/options-general.php?page=BTE_OPP_admin.php" method="post">
 					<input type="hidden" name="bte_opp_action" value="bte_opp_update_settings" />
 					<fieldset class="options">
-						<div class="option">
-							<label for="bte_opp_twitter_username">Enable Tweet on Promotion: '.__('Twitter Username', 'OldPostPromoter').'/'.__('Password', 'OldPostPromoter').':</label>
-							<input type="text" size="25" name="bte_opp_twitter_username" id="bte_opp_twitter_username" value="'.$twitter_username.'" autocomplete="off" />
-							<input type="password" size="25" name="bte_opp_twitter_password" id="bte_opp_twitter_password" value="'.$twitter_password.'" autocomplete="off" />
-						</div>
 						<div class="option">
 							<label for="bte_opp_interval">'.__('Minimum Interval Between Old Post Promotions: ', 'OldPostPromoter').'</label>
 							<select name="bte_opp_interval" id="bte_opp_interval">
@@ -174,13 +177,6 @@ function bte_opp_options() {
 									<option value="0" '.bte_opp_optionselected(0,$atTop).'>'.__('No', 'OldPostPromoter').'</option>
 							</select>
 						</div>
-						<div class="option">
-							<label for="bte_opp_give_credit">'.__('Give OPP Credit with Link? ', 'OldPostPromoter').'</label>
-							<select name="bte_opp_give_credit" id="bte_opp_give_credit">
-									<option value="1" '.bte_opp_optionselected(1,$bte_opp_give_credit).'>'.__('Yes', 'OldPostPromoter').'</option>
-									<option value="0" '.bte_opp_optionselected(0,$bte_opp_give_credit).'>'.__('No', 'OldPostPromoter').'</option>
-							</select>
-						</div>
 							<ul id="category-tabs"> 
         						<li class="ui-tabs-selected"><a href="#categories-all" 
 									tabindex="3">'.__('Categories to Omit from Promotion: ', 'OldPostPromoter').'</a></li> 
@@ -190,7 +186,46 @@ function bte_opp_options() {
 								');
 	wp_category_checklist(0, 0, explode(',',$omitCats));
 	print('				    		</ul>
-								<div>
+								</div>
+						<h3>'.__('Connect to Twitter (Tweet on Old Post Promotion)','related-tweets').'</h3>
+			<p style="width: 700px;">'.__('In order to get started, we need to follow some steps to get this site registered with Twitter. This process is awkward and more complicated than it should be. We hope to have a better solution for this in a future release, but for now this system is what Twitter supports.  You can reuse settings from other twitter plugins if the install instructions are similar.', 'related-tweets').'</p> 
+					<h4>'.__('1. Register this site as an application on ', 'related-tweets') . '<a href="http://dev.twitter.com/apps/new" title="'.__('Twitter App Registration','related-tweets').'" target="_blank">'.__('Twitter\'s app registration page','related-tweets').'</a></h4>
+					<div id="aktt_sub_instructions">
+						<ul>
+						<li>'.__('If you\'re not logged in, you can use your Twitter username and password' , 'related-tweets').'</li>
+						<li>'.__('Your Application\'s Name will be what shows up after "via" in your twitter stream' , 'related-tweets').'</li>
+						<li>'.__('Application Type should be set on ' , 'related-tweets').'<strong>'.__('Browser' , 'related-tweets').'</strong></li>
+						<li>'.__('The Callback URL should be ' , 'related-tweets').'<strong>'.  get_bloginfo( 'url' ) .'</strong></li>
+						<li>'.__('Default Access type should be set to ' , 'related-tweets').'<strong>'.__('Read &amp; Write' , 'related-tweets').'</strong> '.__('(this is NOT the default)' , 'related-tweets').'</li>
+						</ul>
+					<p>'.__('Once you have registered your site as an application, you will be provided with a consumer key and a comsumer secret.' , 'related-tweets').'</p>
+					</div>
+					<h4>'.__('2. Copy and paste your consumer key and consumer secret into the fields below' , 'related-tweets').'</h4>				
+					<h4>3. Copy and paste your Access Token and Access Token Secret into the fields below</h4>
+					<p>On the right hand side of your application page, click on \'My Access Token\'.</p>
+			<div class="option">
+							<label for="bte_rt_twitter_consumer_key">'.__('Twitter Consumer Key', 'RelatedTweets').':</label>
+							<input type="text" size="100" name="bte_rt_twitter_consumer_key" id="bte_rt_twitter_consumer_key" value="'.$twitter_consumer_key.'" autocomplete="off" />
+							</div>
+						<div class="option">
+							<label for="bte_rt_twitter_consumer_secret">'.__('Consumer Secret', 'RelatedTweets').':</label>
+							<input type="text" size="100" name="bte_rt_twitter_consumer_secret" id="bte_rt_twitter_consumer_secret" value="'.$twitter_consumer_secret.'" autocomplete="off" />
+							</div>
+						<div class="option">
+							<label for="bte_rt_twitter_oauth_token">'.__('Oauth Token', 'RelatedTweets').':</label>
+							<input type="text" size="100" name="bte_rt_twitter_oauth_token" id="bte_rt_twitter_oauth_token" value="'.$twitter_oauth_token.'" autocomplete="off" />
+							</div>
+						<div class="option">
+							<label for="bte_rt_twitter_oauth_secret">'.__('Oauth Secret', 'RelatedTweets').':</label>
+							<input type="text" size="100" name="bte_rt_twitter_oauth_secret" id="bte_rt_twitter_oauth_secret" value="'.$twitter_oauth_secret.'" autocomplete="off" />
+							</div>
+						<div class="option">
+							<label for="bte_opp_give_credit">'.__('Give OPP Credit with Link? ', 'OldPostPromoter').'</label>
+							<select name="bte_opp_give_credit" id="bte_opp_give_credit">
+									<option value="1" '.bte_opp_optionselected(1,$bte_opp_give_credit).'>'.__('Yes', 'OldPostPromoter').'</option>
+									<option value="0" '.bte_opp_optionselected(0,$bte_opp_give_credit).'>'.__('No', 'OldPostPromoter').'</option>
+							</select>
+						</div>
 					</fieldset>
 					<p class="submit">
 						<input type="submit" name="submit" value="'.__('Update OPP Options', 'OldPostPromoter').'" />

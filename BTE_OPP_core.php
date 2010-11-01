@@ -172,33 +172,37 @@ function bte_opp_sendXmlrpc($server, $permalink) {
 
 
 function bte_opp_tweet($tweet) {
-	$user = get_option('bte_opp_twitter_username');
-	$pass = get_option('bte_opp_twitter_password');
-	if (empty($user) 
-		|| empty($pass) 
+	$consumer_key = get_option('bte_opp_twitter_consumer_key');
+	$consumer_secret = get_option('bte_opp_twitter_consumer_secret');
+	$oauth_token = get_option('bte_opp_twitter_oauth_token');
+	$oauth_secret = get_option('bte_opp_twitter_oauth_secret');
+	
+	if (empty($consumer_key) 
+		|| empty($consumer_secret) 
+		|| empty($oauth_token) 
+		|| empty($oauth_secret) 
 		|| empty($tweet)
 	) {
 		return;
 	}
-	//I guess I am supposed to do this with OAuth but that seems way to hard given the nature of plugins
-	require_once(ABSPATH.WPINC.'/class-snoopy.php');
-	$snoop = new Snoopy;
-	$snoop->agent = 'Old Post Promoter http://www.blogtrafficexchange.com/old-post-promoter';
-	$snoop->rawheaders = array(
-		'X-Twitter-Client' => 'Old Post Promoter'
-		, 'X-Twitter-Client-Version' => '1.7.1'
-		, 'X-Twitter-Client-URL' => 'http://www.blogtrafficexchange.com/old-post-promoter.xml'
-	);
-	$snoop->user = $user;
-	$snoop->pass = $pass;
-	$snoop->submit(
+	
+	require_once('twitteroauth.php');
+	$connection = new TwitterOAuth(
+			$consumer_key, 
+			$consumer_secret, 
+			$oauth_token, 
+			$oauth_secret
+		);
+	$connection->useragent = 'Old Post Promoter http://www.blogtrafficexchange.com/old-post-promoter/';
+	
+	$connection->post(
 		BTE_RT_API_POST_STATUS
 		, array(
 			'status' => $tweet
 			, 'source' => 'Old Post Promoter'
 		)
 	);
-	if (strpos($snoop->response_code, '200')) {
+	if (strcmp($connection->http_code, '200') == 0) {
 		return true;
 	}
 	return false;
@@ -224,7 +228,7 @@ function bte_opp_the_content($content) {
 				$dateline.='Originally posted '.$origPubDate.'. ';
 			}
 			if ($givecredit) {
-					$dateline.='Republished by  <a href="http://www.blogtrafficexchange.com/old-post-promoter">Blog Post Promoter</a>';
+					$dateline.='Republished by  <a href="http://www.blogtrafficexchange.com/old-post-promoter/">Blog Post Promoter</a>';
 			}
 			$dateline.='</small></p>';
 		}
