@@ -3,8 +3,8 @@ Contributors: Blog Traffic Exchange (http://www.blogtrafficexchange.com)
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=1777819
 Tags: post, promotion, SEO, rss, plugin, posts, bte
 Requires at least: 2.5
-Tested up to: 3.1
-Stable tag: 1.9.1
+Tested up to: 3.2
+Stable tag: 1.9.2
 
 Randomly choose an old post and reset the publication date to now.  Promote older posts back to front page and RSS feed.
 
