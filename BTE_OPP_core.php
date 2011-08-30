@@ -100,6 +100,8 @@ function bte_opp_update_old_post($oldest_post) {
 			bte_opp_sendXmlrpc($service,$permalink);
 		}
 	}
+	
+	do_action( 'old_post_promoted', $post ); 
 }
 
 function bte_opp_get_short_url($url) {
